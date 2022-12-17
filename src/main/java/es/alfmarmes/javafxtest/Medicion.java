@@ -51,4 +51,11 @@ class Medicion implements Comparable {
         return devolver;
     }
 
+    @Override
+    public String toString() {
+        return tiempo.getDayOfMonth() + "/" + tiempo.getMonth() + "/"
+                + tiempo.getYear() + " " + tiempo.getHour() + ":"
+                + tiempo.getMinute() + "  ,Presion " + presion + " mmhg";
+    }
+
 }

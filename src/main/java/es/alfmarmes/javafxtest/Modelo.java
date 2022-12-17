@@ -35,11 +35,10 @@ public class Modelo {
         this.presionReferencia = presionReferencia;
 
         //Cogemos todas los tiempos de medición
-        ArrayList<LocalDateTime> mediciones = (ArrayList) historial.keySet();
+        Set<LocalDateTime> mediciones = (Set) historial.keySet();
 
         //Consideramos que la primera es la última
-        this.ultimaMedicion = mediciones.get(0);
-        mediciones.remove(0);
+        this.ultimaMedicion = LocalDateTime.MIN;
 
         /*
         Por cada clave comprobamos si es posterior a nuestra última y
@@ -54,26 +53,40 @@ public class Modelo {
     }
 
     // Setter y Getters
+    /**
+     * Getter del historial de la clase Modelo
+     *
+     * @return historial
+     */
     public HashMap<LocalDateTime, Double> getHistorial() {
         return historial;
     }
 
+    /**
+     * Getter de presion de referencia de la clase Modelo
+     *
+     * @return presion de referencia
+     */
     public Double getPresionReferencia() {
         return presionReferencia;
     }
 
+    /**
+     * Setter de presion de referencia de la clase Modelo
+     *
+     */
     public void setPresionReferencia(Double presionReferencia) {
         this.presionReferencia = presionReferencia;
     }
 
     // Métodos Públicos
     /**
+     * Añade una nueva medición o edita una existente del historial.
      *
      * @param tiempo
      * @param presion
-     * @return
      */
-    public Tiempo annadirMedicion(LocalDateTime tiempo, double presion) {
+    public void annadirMedicion(LocalDateTime tiempo, double presion) {
         /* Si el tiempo de medicion es posterior a la ultima esta se convierte
         en la nueva última medicion*/
         if (tiempo.isAfter(ultimaMedicion)) {
@@ -81,9 +94,13 @@ public class Modelo {
         }
         //Añadir al historial
         historial.put(tiempo, presion);
-        return obtenerTiempo();
     }
 
+    /**
+     * Consulta el historial y devuelve una preción del tiempo
+     *
+     * @return prediccion de tiempo
+     */
     public Tiempo obtenerTiempo() {
         Tiempo devolver;
         if (borrascaIntensa()) {
@@ -101,6 +118,11 @@ public class Modelo {
     }
 
     // Métodos Privados
+    /**
+     * Comproueba
+     *
+     * @return
+     */
     private boolean borrascaIntensa() {
         Double a;
         if (historial.containsKey(ultimaMedicion.minusHours(1))) {
