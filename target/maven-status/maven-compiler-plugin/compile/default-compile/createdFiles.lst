@@ -1,5 +1,9 @@
-module-info.class
+es\alfmarmes\javafxtest\Controlador.class
 es\alfmarmes\javafxtest\SecondaryController.class
 es\alfmarmes\javafxtest\App.class
 es\alfmarmes\javafxtest\PrimaryController.class
-es\alfredomarquinameseguer\controles.class
+es\alfmarmes\javafxtest\Tiempo.class
+es\alfmarmes\javafxtest\controles.class
+module-info.class
+es\alfmarmes\javafxtest\Medicion.class
+es\alfmarmes\javafxtest\Modelo.class

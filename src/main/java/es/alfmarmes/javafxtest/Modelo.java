@@ -53,6 +53,35 @@ public class Modelo {
     }
 
     private Tiempo actualizarTiempo() {
+        Tiempo devolver = Tiempo.INSUFICIENTE;;
+        if (borrascaIntensa()) {
+
+        } else if (borrascaLejos()) {
+
+        } else if (anticiclonIntenso()) {
+
+        } else if (anticiclonEntrBorrascas()) {
+
+        } else {
+
+        }
+
+        return devolver;
+    }
+
+    private boolean borrascaIntensa() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private boolean borrascaLejos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private boolean anticiclonIntenso() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private boolean anticiclonEntrBorrascas() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
