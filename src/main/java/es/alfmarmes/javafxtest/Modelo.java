@@ -6,33 +6,56 @@ package es.alfmarmes.javafxtest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
+ * Clase Modelos
+ *
+ * El propio barometro
  *
  * @author Alfre
  */
 public class Modelo {
 
-    HashMap<LocalDateTime, Double> historial;
-    Double presionReferencia;
-    Tiempo estado;
+    private HashMap<LocalDateTime, Double> historial;
+    /**
+     * Fecha de la medición con la fecha más tardía
+     */
+    private LocalDateTime ultimaMedicion;
+    /**
+     * Presion de referencia, en mmHg
+     */
+    private Double presionReferencia;
 
-    //Constructores
+    // Constructores
     public Modelo(HashMap<LocalDateTime, Double> historial, Double presionReferencia) {
-        //Crear y llenar HashMap
-        historial = new HashMap<>();
-        this.historial.putAll(historial);
+        this.historial = historial;
+        this.presionReferencia = presionReferencia;
 
-        actualizarTiempo();
+        //Cogemos todas los tiempos de medición
+        ArrayList<LocalDateTime> mediciones = (ArrayList) historial.keySet();
+
+        //Consideramos que la primera es la última
+        this.ultimaMedicion = mediciones.get(0);
+        mediciones.remove(0);
+
+        /*
+        Por cada clave comprobamos si es posterior a nuestra última y
+        si lo es la consideramos la última  cuando terminesmo de recorrer toda
+        la lista, abremos encontrado la última.
+         */
+        for (LocalDateTime medicion : mediciones) {
+            if (medicion.isAfter(this.ultimaMedicion)) {
+                this.ultimaMedicion = medicion;
+            }
+        }
     }
 
+    // Setter y Getters
     public HashMap<LocalDateTime, Double> getHistorial() {
         return historial;
-    }
-
-    public void setHistorial(HashMap<LocalDateTime, Double> historial) {
-        this.historial = historial;
     }
 
     public Double getPresionReferencia() {
@@ -43,46 +66,82 @@ public class Modelo {
         this.presionReferencia = presionReferencia;
     }
 
-    public Tiempo getEstado() {
-        return estado;
-    }
-
-    public Tiempo actualizarHistorial(LocalDateTime tiempoMedicion, double presion) {
-        historial.put(tiempoMedicion, presion);
-        return actualizarTiempo();
-    }
-
-    private Tiempo actualizarTiempo() {
-        Tiempo devolver = Tiempo.INSUFICIENTE;;
-        if (borrascaIntensa()) {
-
-        } else if (borrascaLejos()) {
-
-        } else if (anticiclonIntenso()) {
-
-        } else if (anticiclonEntrBorrascas()) {
-
-        } else {
-
+    // Métodos Públicos
+    /**
+     *
+     * @param tiempo
+     * @param presion
+     * @return
+     */
+    public Tiempo annadirMedicion(LocalDateTime tiempo, double presion) {
+        /* Si el tiempo de medicion es posterior a la ultima esta se convierte
+        en la nueva última medicion*/
+        if (tiempo.isAfter(ultimaMedicion)) {
+            ultimaMedicion = tiempo;
         }
+        //Añadir al historial
+        historial.put(tiempo, presion);
+        return obtenerTiempo();
+    }
 
+    public Tiempo obtenerTiempo() {
+        Tiempo devolver;
+        if (borrascaIntensa()) {
+            devolver = Tiempo.BORRASCA_PROFUNDA;
+        } else if (borrascaLejos()) {
+            devolver = Tiempo.BORRASCA_LEJOS;
+        } else if (anticiclonIntenso()) {
+            devolver = Tiempo.ANTICICLON;
+        } else if (anticiclonEntreBorrascas()) {
+            devolver = Tiempo.ANTICICLON_ENTRE_BORRASCAS;
+        } else {
+            devolver = Tiempo.ANTICICLON;
+        }
         return devolver;
     }
 
+    // Métodos Privados
     private boolean borrascaIntensa() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Double a;
+        if (historial.containsKey(ultimaMedicion.minusHours(1))) {
+            a = historial.get(ultimaMedicion.minusHours(1));
+        } else {
+            return false;
+        }
+        Double diferencia = historial.get(ultimaMedicion) - a;
+        return (diferencia <= -1);
     }
 
     private boolean borrascaLejos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Double a;
+        if (historial.containsKey(ultimaMedicion.minusDays(1))) {
+            a = historial.get(ultimaMedicion.minusDays(1));
+        } else {
+            return false;
+        }
+        Double diferencia = historial.get(ultimaMedicion) - a;
+        return (-6.5 <= diferencia && diferencia <= -5.5);
     }
 
     private boolean anticiclonIntenso() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Double a;
+        if (historial.containsKey(ultimaMedicion.minusHours(1))) {
+            a = historial.get(ultimaMedicion.minusHours(1));
+        } else {
+            return false;
+        }
+        Double diferencia = historial.get(ultimaMedicion) - a;
+        return (diferencia >= 1);
     }
 
-    private boolean anticiclonEntrBorrascas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private boolean anticiclonEntreBorrascas() {
+        Double a;
+        if (historial.containsKey(ultimaMedicion.minusDays(1))) {
+            a = historial.get(ultimaMedicion.minusDays(1));
+        } else {
+            return false;
+        }
+        Double diferencia = historial.get(ultimaMedicion) - a;
+        return (5.5 <= diferencia && diferencia <= 6.5);
     }
-
 }

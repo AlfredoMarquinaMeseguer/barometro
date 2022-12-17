@@ -77,7 +77,7 @@
             </Button>
             <ImageView fitHeight="202.0" fitWidth="210.0" layoutX="133.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@sunny.png" />
+                  <Image url="@error.png" />
                </image>
             </ImageView>
          </children>

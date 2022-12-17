@@ -20,32 +20,59 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
+ * Clase Controlador
  *
- * @author Alfre
+ * Controlador del barometro con el modelo MVP
+ *
+ * @author Alfredo Marquina Meseguer
  */
 public class Controlador {
 
-    private static final String ruta = "C:\\Users\\Alfre\\Documents\\"
+    //Atributos
+    /**
+     * Ruta del fichero JSON en el que guarda el historial
+     */
+    private static final String RUTA_JSON = "C:\\Users\\Alfre\\Documents\\"
             + "NetBeansProjects\\barometro\\src\\main\\resources\\"
             + "es\\alfmarmes\\file.json";
-    String rutaIcono;
-    public HashMap<LocalDateTime, Double> hashMap;
 
-    public Controlador() {
-        hashMap = cargarHistorial();
-    }
+    /**
+     * Presion al nivel del mar *
+     */
+    private static final double PRESION_NIVEL_MAR_MMHG = 760.0;
+    Modelo modelo;
+    // Probablemnete Eliminar
+    String rutaIcono;
+    //Probablemente guardar solo en Modelo
+    public HashMap<LocalDateTime, Double> hashMap;
 
     public static void main(String args[]) {
         Controlador ctrl = new Controlador();
         System.out.println("" + ctrl.hashMap);
     }
 
+    public Controlador() {
+        hashMap = cargarHistorial();
+        modelo = new Modelo(hashMap, PRESION_NIVEL_MAR_MMHG);
+    }
+
+    /**
+     * Guardar el fichero JSON especificado en la variable
+     *
+     *
+     *
+     */
     public void guardarHistorial() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(hashMap);
-        Path path = Paths.get(ruta);
+        Path path = Paths.get(RUTA_JSON);
         try ( FileWriter writer = new FileWriter(path.toString())) {
             writer.write(json);
             System.out.println(json);
@@ -54,42 +81,111 @@ public class Controlador {
         }
     }
 
+    /**
+     * Carga el fichero JSON especificado en la variable
+     *
+     *
+     *
+     */
     public HashMap<LocalDateTime, Double> cargarHistorial() {
+        // Creamos un gson con el adaptador de tipo para la clase LocalDateTime
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
+                .registerTypeAdapter(LocalDateTime.class,
+                        new LocalDateTimeAdaptador())
                 .create();
-        Path path = Paths.get(ruta);
-        HashMap<LocalDateTime, Double> hashMap;
-        try ( FileReader reader = new FileReader(path.toString())) {
-            hashMap = gson.fromJson(reader,
+        //Conseguimos la ruta en la que se encuenra el
+        Path path = Paths.get(RUTA_JSON);
+
+        //Inicializamos un mapa a devolver
+        HashMap<LocalDateTime, Double> devolver;
+        //Intentamos crear un FileReader para leer el JSON
+        try ( FileReader lector = new FileReader(path.toString())) {
+            /* Si no encuentra problemas leemos el fichero y lo pasamos a
+                hashMap*/
+            devolver = gson.fromJson(lector,
                     new TypeToken<HashMap<LocalDateTime, Double>>() {
                     }.getType());
         } catch (IOException e) {
+            //Si no encuentran ningún fichero es porque todavía no se ha creado
             e.printStackTrace();
-            hashMap = new HashMap<>();
+            devolver = new HashMap<>();
         }
-        return hashMap;
+        return devolver;
     }
 
+    /**
+     * Recibe la altura a la que se encuentra el barometro y devuelve la presion
+     * de referencia.
+     *
+     * @param altura
+     * @return Nueva presion de referencia
+     */
     public double calibrar(int altura) {
-
-        return 0.0;
+        double presion = PRESION_NIVEL_MAR_MMHG - (altura / 11);
+        modelo.setPresionReferencia(presion);
+        return presion;
     }
 
+    /**
+     * Recibe el tiempo y la medida y los añade al hashMap del modelo
+     *
+     * @param tiempo
+     * @param medida
+     */
     public void annadirMedida(LocalDateTime tiempo, double medida) {
-
+        modelo.annadirMedicion(tiempo, medida);
     }
 
+    /**
+     * Devuelve la ruta al icono que corresponde con el estado del barometro.
+     *
+     * @return ruta icono
+     */
     public String actualizarIcono() {
-
-        return "ruta";
+        String rutaIcono;
+        switch (modelo.obtenerTiempo()) {
+            case ANTICICLON:
+                rutaIcono = "sunny.png";
+                break;
+            case ANTICICLON_ENTRE_BORRASCAS:
+                rutaIcono = "cloudy.png";
+                break;
+            case BORRASCA_LEJOS:
+                rutaIcono = "rainy.png";
+                break;
+            case BORRASCA_PROFUNDA:
+                rutaIcono = "heavy-rain_1.png";
+                break;
+            default:
+                rutaIcono = "error.png";
+        }
+        return rutaIcono;
     }
 
-    /*
-    Devuelve todo el contenido del HashMap de mediciones con un objeto que es la asociación de la tabla de dispersión
+    /**
+     * Devuelve todo el contenido del HashMap de mediciones con un objeto que es
+     * la asociación de la tabla de dispersión.
+     *
+     * return historial
      */
     public ArrayList<Medicion> historialCompleto() {
-        return null;
+        // Conseguimos el mapa a modo de un Set
+        Set<Entry<LocalDateTime, Double>> mapa = modelo.getHistorial().
+                entrySet();
+
+        // Inicializamos el arraylist a devolver
+        ArrayList<Medicion> devolver = new ArrayList<>();
+
+        // Introducimos todos los valores del set en la lista como objetos Medicion
+        for (Entry<LocalDateTime, Double> medicion : mapa) {
+            devolver.add(new Medicion(medicion.getKey(),
+                    medicion.getValue()));
+        }
+
+        // Ordenamos la lista segun fecha de medición
+        Collections.sort(devolver);
+
+        return devolver;
     }
 
 }

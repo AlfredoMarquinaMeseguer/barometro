@@ -7,28 +7,29 @@ package es.alfmarmes.javafxtest;
 import java.time.LocalDateTime;
 
 /**
+ * Clase medicion
  *
- * @author Alfre
+ * @author Alfredo Marquina Meseguer
  */
-class Medicion {
+class Medicion implements Comparable {
 
-    LocalDateTime timepo;
+    LocalDateTime tiempo;
     Double presion;
 
     public Medicion() {
     }
 
-    public Medicion(LocalDateTime timepo, Double presion) {
-        this.timepo = timepo;
+    public Medicion(LocalDateTime tiempo, Double presion) {
+        this.tiempo = tiempo;
         this.presion = presion;
     }
 
-    public LocalDateTime getTimepo() {
-        return timepo;
+    public LocalDateTime getTiempo() {
+        return tiempo;
     }
 
-    public void setTimepo(LocalDateTime timepo) {
-        this.timepo = timepo;
+    public void setTiempo(LocalDateTime timepo) {
+        this.tiempo = timepo;
     }
 
     public Double getPresion() {
@@ -37,6 +38,17 @@ class Medicion {
 
     public void setPresion(Double presion) {
         this.presion = presion;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int devolver = 0;
+        if (this.tiempo.isBefore(((Medicion) o).getTiempo())) {
+            devolver = -1;
+        } else if (this.tiempo.isAfter(((Medicion) o).getTiempo())) {
+            devolver = 1;
+        }
+        return devolver;
     }
 
 }
