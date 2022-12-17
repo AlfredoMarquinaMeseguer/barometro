@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.alfmarmes.javafxtest.controles">
+    <children>
+        <Button fx:id="Boton" layoutX="250.0" layoutY="252.0" mnemonicParsing="false" onAction="#elPerroDeJuanVicenteComePienso" prefHeight="62.0" prefWidth="101.0" text="Button">
+            <font>
+                <Font size="20.0" />
+            </font>
+         <effect>
+            <InnerShadow choke="0.43" height="20.0" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.9599999785423279" green="0.14399999380111694" blue="0.9056000113487244" />
+               </color>
+            </InnerShadow>
+         </effect>
+        </Button>
+        <Label fx:id="lTexto" alignment="CENTER" contentDisplay="CENTER" layoutX="241.0" layoutY="107.0" prefHeight="45.0" prefWidth="119.0" text="Texto">
+            <font>
+                <Font size="20.0" />
+            </font>
+         <effect>
+            <InnerShadow choke="0.43" height="20.0" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.9599999785423279" green="0.14399999380111694" blue="0.9056000113487244" />
+               </color>
+            </InnerShadow>
+         </effect>
+        </Label>
+        <TextField fx:id="tfTexto" layoutX="168.0" layoutY="169.0" prefHeight="62.0" prefWidth="264.0">
+         <effect>
+            <InnerShadow choke="0.43" height="20.0" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.9599999785423279" green="0.14399999380111694" blue="0.9056000113487244" />
+               </color>
+            </InnerShadow>
+         </effect></TextField>
+    </children>
+   <effect>
+      <DropShadow radius="35.15" width="121.6">
+         <color>
+            <Color red="1.0" />
+         </color>
+      </DropShadow>
+   </effect>
+</Pane>
