@@ -145,20 +145,21 @@ public class Controlador implements Initializable {
         //Altura
         validationSupport.registerValidator(tfAltura, 
                 Validator.createRegexValidator(
-                        "La altura debe ser un número entero positivo", 
+                        rb.getString("validacionAltura"), 
                         "[0-9]+", 
                         Severity.ERROR));
         
         //Presion
         validationSupport.registerValidator(tfPresion, 
                 Validator.createRegexValidator(
-                        "La presion debe ser un número entero positivo", 
+                        rb.getString("validacionPresion"), 
                         "[0-9]+", 
                         Severity.ERROR));
         
         ///////Aplicamos Validacion en el Date Picker
         validationSupport.registerValidator(datePickerFecha, 
-                Validator.createEmptyValidator("Selecciona una fecha"));
+                Validator.createEmptyValidator(
+                        rb.getString("validacionDatePicker")));
         
         
     }
