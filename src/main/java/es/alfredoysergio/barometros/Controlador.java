@@ -146,30 +146,35 @@ public class Controlador implements Initializable {
     @FXML
     private ToggleGroup tgMedida;
     
-     /**
-     * El objeto Vista asociado a este objeto Controles.
+        
+    /**
+     * Ruta de guardado del fichero Json del historial
      */
-    Modelo modelo;
-
+    public static final String RUTA_JSON = "src/main/resources/json/file.json";        
     /**
      * Presion al nivel del mar
      */
-    private static final double PRESION_NIVEL_MAR_MMHG = 760.0;
+    public static final double PRESION_NIVEL_MAR_MMHG = 760.0;        
+        
+     /**
+     * El objeto Vista asociado a este objeto Controles.
+     */
+    Modelo modelo;    
 
     /**
      * Validador para los campos rellenables
      */
-    ValidationSupport validationSupport = new ValidationSupport();
+    private ValidationSupport validationSupport = new ValidationSupport();
     
     /**
      * Resouce  Bundel para la internacionalización
      */
-    ResourceBundle i18n;
+    private ResourceBundle i18n;
     
     /**
      * Para guardar las preferencias cuando se cierra la  
      */
-    String preferencias;
+    private String preferencias;
     
     @FXML
     void actualizar(ActionEvent event) {
@@ -234,7 +239,7 @@ public class Controlador implements Initializable {
                 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
 
         spHora.setValueFactory(valueFactory);
-        modelo = Modelo.cargarModelo();
+        modelo = Modelo.cargarModelo(Controlador.RUTA_JSON);
         
         
         //validationSupport.setErrorDecorationEnabled(false);
@@ -242,21 +247,21 @@ public class Controlador implements Initializable {
         //Altura
         validationSupport.registerValidator(tfAltura, 
                 Validator.createRegexValidator(
-                        rb.getString("validacionAltura"), 
+                        rb.getString("validacion.Altura"), 
                         "[0-9]+", 
                         Severity.ERROR));
         
         //Presion
         validationSupport.registerValidator(tfPresion, 
                 Validator.createRegexValidator(
-                        rb.getString("validacionPresion"), 
+                        rb.getString("validacion.Presion"), 
                         "[0-9]+", 
                         Severity.ERROR));
         
         ///////Aplicamos Validacion en el Date Picker
         validationSupport.registerValidator(datePickerFecha, 
                 Validator.createEmptyValidator(
-                        rb.getString("validacionDatePicker")));
+                        rb.getString("validacion.DatePicker")));
         
         
     }
@@ -335,14 +340,19 @@ public class Controlador implements Initializable {
     }
     
     public void cambiarIdioma(Locale locale){
-        i18n = ResourceBundle.getBundle("MessgesBundle", locale);
+        i18n = ResourceBundle.getBundle(App.RUTA_BUNDLE, locale);
         
         ////// Parte de añadir calibración del barómetro
         lCalibrar.setText(i18n.getString("calibracion"));
         lReferencia.setText(i18n.getString("referencia"));
         lAltura.setText(i18n.getString("altura"));
         btCalibrar.setText(i18n.getString("calibrar"));
-        btCalibrar.accessibleTextProperty().setValue(i18n.getString(""));
+        // Accesibilidad
+        btCalibrar.accessibleTextProperty().setValue(i18n.getString
+                                               ("accesibilidad.BtCalibrar"));
+        // Ayuda
+        btCalibrar.accessibleHelpProperty().setValue(i18n.getString
+                                               ("ayuda.BtCalibrar"));
         
         ////// Parte de añadir Medicion
         lMedicion.setText(i18n.getString("medicion"));
@@ -350,12 +360,31 @@ public class Controlador implements Initializable {
         lFecha.setText(i18n.getString("fecha"));
         lHora.setText(i18n.getString("hora"));
         btActualizar.setText(i18n.getString("actualizar"));
+        // Accesibilidad
+        tfPresion.accessibleTextProperty().setValue(
+                i18n.getString("accesibilidad.TfPresion"));
+        btmmhg.accessibleTextProperty().setValue(
+                i18n.getString("accesibilidad.RBMercurio"));
+        bthpa.accessibleTextProperty().setValue(
+                i18n.getString("accesibilidad.RBPascales"));
+        datePickerFecha.accessibleTextProperty().setValue(
+                i18n.getString("accesibilidad.DatePicker"));
+        spHora.accessibleTextProperty().setValue(
+                i18n.getString("accesibilidad.SpHora"));        
+        btActualizar.accessibleTextProperty().setValue(
+                i18n.getString("accesibilidad.BtActualizar"));
+        // Ayuda
+        btActualizar.accessibleHelpProperty().setValue(i18n.getString
+                                               ("ayuda.BtActualizar"));
         
         ////// Parte de icono
         lIcono.setText(i18n.getString("icono"));        
         
         ////// Parte de Historial
         lHistorial.setText(i18n.getString("historial"));
+        //Ayuda
+        historial.accessibleHelpProperty().setValue(i18n.getString
+                                               ("ayuda.TAHistorial"));
         
         
         ////// Menu

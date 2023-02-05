@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.stage.WindowEvent;
 
 /**
@@ -14,19 +16,42 @@ import javafx.stage.WindowEvent;
  */
 public class App extends Application {
 
+    public static String RUTA_BUNDLE = "es/alfredoysergio/barometros/internacionalizacion/MessageBundle";
+    
     private static Scene scene;
+    
+    
+    //Las preferncias no funcionan, pero yo te la pongo igual
+    // Preferences preferencias;
 
     @Override
     public void start(Stage stage) throws IOException {
+        // String lang = preferencias.get("LANG", "es");
+        String lang = "es";
+        Locale locale ;
+        
+        // Esto tendría sentido si las preferencia funcionaran        
+        if(lang.equals("en")){
+            locale = Locale.UK;
+        }else if (lang.equals("fr")){
+            locale = Locale.FRANCE;
+        }else{
+            locale = new Locale("es", "ES");
+        }
+        
+        ResourceBundle rb = ResourceBundle.getBundle(RUTA_BUNDLE, 
+                locale);
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(
-                "barometro.fxml"));
+                "barometro.fxml"), rb);
         scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         
         Controlador controlador = fxmlLoader.getController();
         
         stage.setOnCloseRequest((WindowEvent event) -> {
-            Modelo.guardarModelo(controlador.getModelo());
+            // Aqui abría guardado las preferencias si funcionaran
+            // Preferences.put("LANG", controlador.getPreferencias());
+            Modelo.guardarModelo(controlador.getModelo(), Controlador.RUTA_JSON);
             System.out.println("Saliendo...");
         });
 
@@ -43,6 +68,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        // Creo que se carga tan rapido que no llama a la pantalla de  carga
         System.setProperty("javafx.proloader", PantallaDeCarga.class.getName());
         launch();
         //Application.launch(App.class, args);

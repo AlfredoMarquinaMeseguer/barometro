@@ -35,7 +35,7 @@ public class Modelo {
     INSUFICIENTE
     };
 
-    private static final String RUTA_JSON = "src/main/resources/json/file.json";
+
 
     private HashMap<LocalDateTime, Medicion> historial;
     /**
@@ -238,12 +238,12 @@ public class Modelo {
      *
      *
      */
-    public static void guardarModelo(Modelo modelo) {
+    public static void guardarModelo(Modelo modelo, String rutaJSON) {
         Gson gson = new GsonBuilder().registerTypeAdapter(
                 LocalDateTime.class, new LocalDateTimeAdaptador()).
                 setPrettyPrinting().create();
         String json = gson.toJson(modelo);    
-        try ( FileWriter writer = new FileWriter(RUTA_JSON)) {
+        try ( FileWriter writer = new FileWriter(rutaJSON)) {
             writer.write(json);
             System.out.println(json);
         } catch (IOException e) {
@@ -257,7 +257,7 @@ public class Modelo {
      *
      *
      */
-    public static Modelo cargarModelo() {
+    public static Modelo cargarModelo(String rutaJSON) {
         System.out.println("Dentro de cargar modelo");
         // Creamos un gson con el adaptador de tipo para la clase LocalDateTime
         Gson gson = new GsonBuilder()
@@ -266,7 +266,7 @@ public class Modelo {
                 .create();
         //Inicializamos un objeto a devolver
         Modelo devolverM = null;        
-        try ( FileReader lector = new FileReader(RUTA_JSON)) {
+        try ( FileReader lector = new FileReader(rutaJSON)) {
             /* Si no encuentra problemas leemos el fichero y lo pasamos a
                 hashMap*/
             
