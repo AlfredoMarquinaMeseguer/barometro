@@ -53,15 +53,7 @@ import org.controlsfx.validation.Validator;
  * @author Alfredo Marquina Meseguer
  */
 public class Controlador implements Initializable {
-    /**
-     * El objeto Vista asociado a este objeto Controles.
-     */
-    Modelo modelo;
-
-    /**
-     * Presion al nivel del mar
-     */
-    private static final double PRESION_NIVEL_MAR_MMHG = 760.0;
+   
     
     @FXML
     private Button btActualizar;
@@ -98,8 +90,26 @@ public class Controlador implements Initializable {
 
     @FXML
     private TextField tfPresion;
+    
+     /**
+     * El objeto Vista asociado a este objeto Controles.
+     */
+    Modelo modelo;
 
-   ValidationSupport validationSupport = new ValidationSupport();
+    /**
+     * Presion al nivel del mar
+     */
+    private static final double PRESION_NIVEL_MAR_MMHG = 760.0;
+
+    /**
+     * Validador para los campos rellenables
+     */
+    ValidationSupport validationSupport = new ValidationSupport();
+    
+    /**
+     * Resouce  Bundel para la internacionalización
+     */
+    ResourceBundle i18n;
     
     @FXML
     void actualizar(ActionEvent event) {
