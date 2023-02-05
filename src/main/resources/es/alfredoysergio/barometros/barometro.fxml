@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.alfredoysergio.barometros.Controlador">
+   <center>
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.0" minWidth="10.0" prefWidth="350.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="444.0" minWidth="10.0" prefWidth="400.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="444.0" minWidth="10.0" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="444.0" minWidth="10.0" prefWidth="450.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="Calibración del Barómetro" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
+                        <HBox accessibleHelp="Presión para la calibración del barómetro" accessibleText="Botón calibrar" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label accessibleHelp="Presión para calibrar el barómetro" prefHeight="35.0" prefWidth="175.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Presion (Pr)" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="labbelPresionMmhg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="170.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="760mmhg" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label accessibleHelp="Altura para calibrar el barómetro" prefHeight="50.0" prefWidth="175.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Altura (h)" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="tfAltura" accessibleText="Cuadro de texto altura" prefHeight="50.0" prefWidth="170.0" stylesheets="@PersonalizeTheme.css" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <Button fx:id="btCalibrar" accessibleHelp="Hacer Click en este botón calibra el barómetro en base a la altura escrita en el cuadro de texto altura." accessibleText="Botón calibrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#calibrarAltura" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="Calibrar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </center>
+               <top>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </top>
+               <bottom>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </bottom>
+               <left>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane prefHeight="5.0" prefWidth="5.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="Insertar nombre de esto" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label accessibleHelp="Presión para guardar una medición en el historial en miligramos de mercurio o hectopascale" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Presión" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="tfPresion" accessibleText="Cuadro de texto presión para la medición" prefHeight="55.0" prefWidth="170.0" stylesheets="@PersonalizeTheme.css" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                              <VBox accessibleHelp="Panel para elegir si la presión se mide en miligramos de mercurio o hectopascales" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <RadioButton fx:id="btmmhg" accessibleText="miligramos de mercurio" mnemonicParsing="false" prefHeight="20.0" selected="true" text="mmhg" VBox.vgrow="ALWAYS">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="10.0" />
+                                       </padding>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tgMedida" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="bthpa" accessibleText="hectopascales" mnemonicParsing="false" prefHeight="20.0" text="hPa" toggleGroup="$tgMedida" VBox.vgrow="ALWAYS">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" top="20.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="50.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label accessibleHelp="Fecha para guardar una medición en el historial" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Fecha" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="datePickerFecha" accessibleText="Selector de fecha para la medición" prefHeight="50.0" prefWidth="270.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </DatePicker>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="50.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label accessibleHelp="Hora para guardar una medición en el historial" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Hora" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Spinner fx:id="spHora" accessibleText="Cuadro de texto de hora para la medición" prefHeight="50.0" prefWidth="270.0" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="btActualizar" accessibleHelp="Hacer Click en este botón guarda una medición en el historial del barómetro en base a la presión escrita en el cuadro de texto presión, el seleccionador de fecha y el cuadro de texto de hora." accessibleText="Botón Actualizar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#actualizar" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="Actualizar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </center>
+               <top>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </top>
+               <bottom>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </bottom>
+               <left>
+                  <Pane prefHeight="5.0" prefWidth="5.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane prefHeight="5.0" prefWidth="5.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="radio" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="Icono" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ImageView fx:id="imageViewIcono" accessibleText="Imagen Para el Icono" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../../../images/error.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </center>
+               <top>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </top>
+               <bottom>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </bottom>
+               <left>
+                  <Pane prefHeight="5.0" prefWidth="5.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane prefHeight="5.0" prefWidth="5.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="550.0" stylesheets="@PersonalizeTheme.css" text="Historial" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TextArea fx:id="historial" accessibleHelp="Area de texto para mostrar las mediciones del historial" editable="false" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </TextArea>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </center>
+               <top>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </top>
+               <bottom>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </bottom>
+               <left>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane prefHeight="10.0" prefWidth="10.0" styleClass="root" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+         </children>
+      </GridPane>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

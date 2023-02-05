@@ -1,0 +1,76 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/*
+    Created on : 4 feb 2023, 18:58:39
+    Author     : Alfre
+*/
+
+.root {
+    -fx-background-color: #C9D1C8;
+}
+
+.button {
+    -fx-background-color: #04202C;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+.button:pressed {
+    -fx-background-color: #C9D1C8;
+    -fx-text-fill: #04202C;
+}
+
+.button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 2, 2;
+}
+
+
+
+
+
+
+
+
+
+.label {
+    -fx-background-color: #304040;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #C9D1C8;
+    -fx-text-fill: #04202C;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0;
+}
+
+.radio-button {
+    -fx-text-fill: white;
+}
+
+.radio-button .radio {
+    -fx-background-color: #304040;
+}
+
+.radio-button .radio:selected {
+    -fx-background-color: #C9D1C8;
+
+}
+
+.hbox {
+    -fx-background-color: #5B7065;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+.vbox {
+    -fx-background-color: #5B7065;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
