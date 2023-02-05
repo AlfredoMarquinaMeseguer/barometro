@@ -17,12 +17,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LoadingScreen extends Preloader {
+public class PantallaDeCarga extends Preloader {
     private ProgressBar bar;
     private Label label;
     private Stage stage;
     
-     public LoadingScreen() {
+     public PantallaDeCarga() {
         bar = new ProgressBar();
         label = new Label("Loading...");
         VBox root = new VBox();
@@ -32,18 +32,6 @@ public class LoadingScreen extends Preloader {
         stage = new Stage();
         stage.setScene(scene);
     }
-//     
-//    @Override
-//    public void start(Stage stage) throws Exception {
-//        this.stage = stage;
-//        VBox root = new VBox();
-//        root.setAlignment(Pos.CENTER);
-//        root.getChildren().add(new ProgressBar());
-//        root.getChildren().add(new Label("Loading..."));
-//        Scene scene = new Scene(root, 300, 100);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
 
     @Override
     public void handleStateChangeNotification(StateChangeNotification info) {
