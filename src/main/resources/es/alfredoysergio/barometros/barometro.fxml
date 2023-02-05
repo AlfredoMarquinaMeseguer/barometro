@@ -23,7 +23,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.alfredoysergio.barometros.Controlador">
    <center>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0">
@@ -41,7 +40,7 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="Calibración del Barómetro" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="%calibracion" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -54,7 +53,7 @@
                         </Label>
                         <HBox accessibleHelp="Presión para la calibración del barómetro" accessibleText="Botón calibrar" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label accessibleHelp="Presión para calibrar el barómetro" prefHeight="35.0" prefWidth="175.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Presion (Pr)" HBox.hgrow="ALWAYS">
+                              <Label accessibleHelp="Presión para calibrar el barómetro" prefHeight="35.0" prefWidth="175.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="%referencia" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -80,7 +79,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label accessibleHelp="Altura para calibrar el barómetro" prefHeight="50.0" prefWidth="175.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Altura (h)" HBox.hgrow="ALWAYS">
+                              <Label accessibleHelp="Altura para calibrar el barómetro" prefHeight="50.0" prefWidth="175.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="%altura" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -95,7 +94,7 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <Button fx:id="btCalibrar" accessibleHelp="Hacer Click en este botón calibra el barómetro en base a la altura escrita en el cuadro de texto altura." accessibleText="Botón calibrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#calibrarAltura" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="Calibrar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Button fx:id="btCalibrar" accessibleHelp="Hacer Click en este botón calibra el barómetro en base a la altura escrita en el cuadro de texto altura." accessibleText="Botón calibrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#calibrarAltura" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="%altura" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -123,7 +122,7 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="Insertar nombre de esto" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="%medicion" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -136,7 +135,7 @@
                         </Label>
                         <HBox prefHeight="100.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label accessibleHelp="Presión para guardar una medición en el historial en miligramos de mercurio o hectopascale" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Presión" HBox.hgrow="ALWAYS">
+                              <Label accessibleHelp="Presión para guardar una medición en el historial en miligramos de mercurio o hectopascale" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="%presion" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -179,7 +178,7 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label accessibleHelp="Fecha para guardar una medición en el historial" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Fecha" HBox.hgrow="ALWAYS">
+                              <Label accessibleHelp="Fecha para guardar una medición en el historial" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="%fecha" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -193,7 +192,7 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="200.0" styleClass="hbox" stylesheets="@PersonalizeTheme.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label accessibleHelp="Hora para guardar una medición en el historial" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="Hora" HBox.hgrow="ALWAYS">
+                              <Label accessibleHelp="Hora para guardar una medición en el historial" prefHeight="50.0" prefWidth="130.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="%hora" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -204,7 +203,7 @@
                               <Spinner fx:id="spHora" accessibleText="Cuadro de texto de hora para la medición" prefHeight="50.0" prefWidth="270.0" />
                            </children>
                         </HBox>
-                        <Button fx:id="btActualizar" accessibleHelp="Hacer Click en este botón guarda una medición en el historial del barómetro en base a la presión escrita en el cuadro de texto presión, el seleccionador de fecha y el cuadro de texto de hora." accessibleText="Botón Actualizar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#actualizar" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="Actualizar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Button fx:id="btActualizar" accessibleHelp="Hacer Click en este botón guarda una medición en el historial del barómetro en base a la presión escrita en el cuadro de texto presión, el seleccionador de fecha y el cuadro de texto de hora." accessibleText="Botón Actualizar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#actualizar" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="%actualizar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -229,7 +228,7 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="radio" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="Icono" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="450.0" stylesheets="@PersonalizeTheme.css" text="%icono" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -269,7 +268,7 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@PersonalizeTheme.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="550.0" stylesheets="@PersonalizeTheme.css" text="Historial" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="550.0" stylesheets="@PersonalizeTheme.css" text="%historial" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -311,19 +310,14 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="%fichero">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="%exportar" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="%accesibilidad">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="%activarVoz" />
             </items>
           </Menu>
         </menus>
