@@ -87,14 +87,14 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="tfAltura" accessibleText="Cuadro de texto altura" prefHeight="50.0" prefWidth="170.0" stylesheets="@PersonalizeTheme.css" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="tfAltura" accessibleText="%accesibilidadTfAltura" prefHeight="50.0" prefWidth="170.0" stylesheets="@PersonalizeTheme.css" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </TextField>
                            </children>
                         </HBox>
-                        <Button fx:id="btCalibrar" accessibleHelp="Hacer Click en este botón calibra el barómetro en base a la altura escrita en el cuadro de texto altura." accessibleText="Botón calibrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#calibrarAltura" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="%altura" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <Button fx:id="btCalibrar" accessibleHelp="%ayudaBtCalibrar" accessibleText="%accesibilidadBtCalibrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#calibrarAltura" prefHeight="100.0" prefWidth="360.0" stylesheets="@PersonalizeTheme.css" text="%calibrar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
