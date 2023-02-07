@@ -176,33 +176,41 @@ public class Controlador implements Initializable {
      */
     private String preferencias;
     
+    /**
+     * Acción realizada al pulsar el botón Actualizar del barómetro. Crea un 
+     * objeto Medición a partir de la presión obtenida de la etiqueta presión,
+     * la selección de los botones de rádio, las fecha escogida y la hora del 
+     * spinner.
+     * @param event 
+     */
     @FXML
-    void actualizar(ActionEvent event) {
+    void actualizar(ActionEvent event) throws Exception{
         Double presion;
         boolean siMmhg;
         LocalDateTime fecha;
 
         siMmhg = btmmhg.isSelected();
-        presion = Double.parseDouble(tfPresion.getText());
+        presion = Double.valueOf(tfPresion.getText());
         fecha = crearLocalDateTime(datePickerFecha,
                 spHora);
 
         Medicion a = annadirMedicion(fecha, presion, siMmhg);
         historial.appendText(a.toString() + "\n");
         // Esto no funciona
-         Image image = new Image("images/sunny.png");
+         Image image = new Image(actualizarIcono());
         System.out.println(image.getUrl());
         imageViewIcono.setImage(image);
         //imageViewIcono.setImage(new Image(actualizarIcono()));
     }
 
+    
     @FXML
     void calibrarAltura(ActionEvent event) {
-        System.out.println("" + imageViewIcono.getImage().toString());
-        Double nuevaPresion;
-        nuevaPresion = Double.parseDouble(tfAltura.getText());
-        modelo.annadirMedicion(LocalDateTime.now(), nuevaPresion);
-        labbelPresionMmhg.setText(nuevaPresion + " mmhg");
+        Double nuevaReferencia;
+        nuevaReferencia = 760 - (Double.parseDouble(tfAltura.getText())/11);
+        modelo.setPresionReferencia(nuevaReferencia);
+        labbelPresionMmhg.setText(String.format("%.2f", 
+                                        nuevaReferencia) + " mmhg");
     }
 
     @FXML
@@ -210,31 +218,54 @@ public class Controlador implements Initializable {
 
     }
 
+    /**
+     * Cambia el idioma a francés
+     * @param event 
+     */
     @FXML
     void cambiarAFranchute(ActionEvent event) {
+        preferencias = "FR";
         cambiarIdioma(Locale.FRANCE);
     }
 
+    /**
+     * Cambia el idioma a español
+     * @param event 
+     */
     @FXML
     void cambiarEspannol(ActionEvent event) {
+        preferencias = "ES";
         cambiarIdioma(new Locale("es", "ES"));
     }
 
+    /**
+     * Cambia el idioma a inglés
+     * @param event 
+     */
     @FXML
     void cambiarIngles(ActionEvent event) {
+        preferencias = "EN";
         cambiarIdioma(Locale.UK);
     }
 
+    /**
+     * Exporta el JSON del historial
+     * @param event 
+     */
     @FXML
     void exportarFichero(ActionEvent event) {
-
+        //Llama a un file chooser para coger la ruta del fichero a guardar
+        // Exporta el fichero
+        //Modelo.guardarModelo(this.modelo, rutacogia);
     }
     
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("" + imageViewIcono.getImage().getUrl());
+        preferencias =  rb.getLocale().getLanguage().toUpperCase();
+        
+        
         SpinnerValueFactory<Integer> valueFactory
                 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
 
@@ -267,15 +298,29 @@ public class Controlador implements Initializable {
     }
 
     
-    //////Setter y getter Modelo
+    /**
+     * Getter del objeto Modelo 
+     * @return objeto Modelo del Controlador
+     */
     public Modelo getModelo() {
         return modelo;
     }
 
+    
+    /**
+     * Setter del objeto Modelo      * 
+     */
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
-    
+   
+    /**
+     * Getter preferencia de idioma del usuario
+     * @return preferencia de idioma del usuario
+     */
+    String getPreferencias() {
+        return preferencias;
+    }
 
     /**
      * Devuelve la ruta al icono que corresponde con el estado del barometro.
@@ -339,6 +384,10 @@ public class Controlador implements Initializable {
                 LocalTime.of(hora.getValue(), 00));
     }
     
+    /**
+     * Cambia el idioma de los controles al idioma especificado en el locale
+     * @param locale Locale del idioma a cambiar
+     */
     public void cambiarIdioma(Locale locale){
         i18n = ResourceBundle.getBundle(App.RUTA_BUNDLE, locale);
         
@@ -401,5 +450,7 @@ public class Controlador implements Initializable {
         frances.setText(i18n.getString("frances"));
         
     }
+
+    
 
 }

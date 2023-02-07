@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.stage.WindowEvent;
-
+import java.util.prefs.Preferences;
 /**
  * JavaFX App
  */
@@ -22,18 +22,19 @@ public class App extends Application {
     
     
     //Las preferncias no funcionan, pero yo te la pongo igual
-    // Preferences preferencias;
+    Preferences preferencias;
 
     @Override
     public void start(Stage stage) throws IOException {
-        // String lang = preferencias.get("LANG", "es");
-        String lang = "es";
+        preferencias = Preferences.userRoot();
+        String lang = preferencias.get("LANG", "ES");
+    
         Locale locale ;
         
         // Esto tendría sentido si las preferencia funcionaran        
-        if(lang.equals("en")){
+        if(lang.equals("EN")){
             locale = Locale.UK;
-        }else if (lang.equals("fr")){
+        }else if (lang.equals("FR")){
             locale = Locale.FRANCE;
         }else{
             locale = new Locale("es", "ES");
@@ -44,13 +45,15 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(
                 "barometro.fxml"), rb);
         scene = new Scene(fxmlLoader.load());
+        
         stage.setScene(scene);
+        stage.setTitle("Barometro");
         
         Controlador controlador = fxmlLoader.getController();
         
         stage.setOnCloseRequest((WindowEvent event) -> {
             // Aqui abría guardado las preferencias si funcionaran
-            // Preferences.put("LANG", controlador.getPreferencias());
+            preferencias.put("LANG", controlador.getPreferencias());
             Modelo.guardarModelo(controlador.getModelo(), Controlador.RUTA_JSON);
             System.out.println("Saliendo...");
         });
