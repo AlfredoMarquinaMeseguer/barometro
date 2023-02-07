@@ -61,9 +61,9 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <Label fx:id="labbelPresionMmhg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="170.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="760mmhg" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                              <Label fx:id="labbelPresionMmhg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="170.0" styleClass="vbox" stylesheets="@PersonalizeTheme.css" text="760.00 mmhg" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="20.0" />
                                  </font>
                                  <padding>
                                     <Insets right="10.0" />

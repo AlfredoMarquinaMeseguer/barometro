@@ -204,13 +204,16 @@ public class Controlador implements Initializable {
     }
 
     
+    /**
+     * 
+     * @param event 
+     */
     @FXML
     void calibrarAltura(ActionEvent event) {
         Double nuevaReferencia;
         nuevaReferencia = 760 - (Double.parseDouble(tfAltura.getText())/11);
         modelo.setPresionReferencia(nuevaReferencia);
-        labbelPresionMmhg.setText(String.format("%.2f", 
-                                        nuevaReferencia) + " mmhg");
+        escribirPresionRef(nuevaReferencia);
     }
 
     @FXML
@@ -263,14 +266,15 @@ public class Controlador implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        preferencias =  rb.getLocale().getLanguage().toUpperCase();
-        
+        preferencias =  rb.getLocale().getLanguage().toUpperCase();        
         
         SpinnerValueFactory<Integer> valueFactory
                 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
 
         spHora.setValueFactory(valueFactory);
         modelo = Modelo.cargarModelo(Controlador.RUTA_JSON);
+        // En el nombre pone label mal, culpo a Sergio
+        escribirPresionRef(modelo.getPresionReferencia());
         
         
         //validationSupport.setErrorDecorationEnabled(false);
@@ -449,6 +453,11 @@ public class Controlador implements Initializable {
         ingles.setText(i18n.getString("ingles"));
         frances.setText(i18n.getString("frances"));
         
+    }
+
+    private void escribirPresionRef(Double presionReferencia) {
+        labbelPresionMmhg.setText(String.format("%.2f", 
+                                        presionReferencia) + " mmhg");
     }
 
     
