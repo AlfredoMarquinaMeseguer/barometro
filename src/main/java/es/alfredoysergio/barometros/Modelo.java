@@ -183,7 +183,7 @@ public class Modelo {
 
     // Métodos Privados
     /**
-     * Comproueba
+     * Comprueba
      *
      * @return
      */
