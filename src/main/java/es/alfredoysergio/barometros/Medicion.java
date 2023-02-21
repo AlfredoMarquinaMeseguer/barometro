@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  *
  * @author Alfredo Marquina Meseguer
  */
-class Medicion implements Comparable {
+public class Medicion implements Comparable {
     
     
 

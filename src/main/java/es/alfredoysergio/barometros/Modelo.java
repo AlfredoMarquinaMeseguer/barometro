@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -29,13 +30,11 @@ import java.util.Set;
  * @author Alfre
  */
 public class Modelo {
-    
+
     public enum Tiempo {
-    BORRASCA_LEJOS, BORRASCA_PROFUNDA, ANTICICLON, ANTICICLON_ENTRE_BORRASCAS,
-    INSUFICIENTE
+        BORRASCA_SUAVE, BORRASCA_INTENSA, ANTICICLON_INTENSO, ANTICICLON_SUAVE,
+        INSUFICIENTE
     };
-
-
 
     private HashMap<LocalDateTime, Medicion> historial;
     /**
@@ -77,12 +76,12 @@ public class Modelo {
 
     }
 
-    
-    public Modelo(){
-        this.ultimaMedicion = LocalDateTime.MIN;
+    public Modelo() {
+        this.ultimaMedicion = LocalDateTime.of(0, Month.MARCH, 1, 0, 0);
         this.presionReferencia = 760.0;
         this.historial = new HashMap<>();
     }
+
     // Setter y Getters
     /**
      * Getter del historial de la clase Modelo
@@ -168,15 +167,15 @@ public class Modelo {
     public Tiempo obtenerTiempo() {
         Tiempo devolver;
         if (borrascaIntensa()) {
-            devolver = Tiempo.BORRASCA_PROFUNDA;
-        } else if (borrascaLejos()) {
-            devolver = Tiempo.BORRASCA_LEJOS;
+            devolver = Tiempo.BORRASCA_INTENSA;
         } else if (anticiclonIntenso()) {
-            devolver = Tiempo.ANTICICLON;
+            devolver = Tiempo.ANTICICLON_INTENSO;
+        } else if (borrascaLejos()) {
+            devolver = Tiempo.BORRASCA_SUAVE;
         } else if (anticiclonEntreBorrascas()) {
-            devolver = Tiempo.ANTICICLON_ENTRE_BORRASCAS;
+            devolver = Tiempo.ANTICICLON_SUAVE;
         } else {
-            devolver = Tiempo.ANTICICLON;
+            devolver = Tiempo.INSUFICIENTE;
         }
         return devolver;
     }
@@ -187,7 +186,7 @@ public class Modelo {
      *
      * @return
      */
-    private boolean borrascaIntensa() {
+    public boolean borrascaIntensa() {
         Double a;
         if (historial.containsKey(ultimaMedicion.minusHours(1))) {
             a = historial.get(ultimaMedicion.minusHours(1)).getPresion();
@@ -198,7 +197,7 @@ public class Modelo {
         return (diferencia <= -1);
     }
 
-    private boolean borrascaLejos() {
+    public boolean borrascaLejos() {
         Double a;
         if (historial.containsKey(ultimaMedicion.minusDays(1))) {
             a = historial.get(ultimaMedicion.minusDays(1)).getPresion();
@@ -209,7 +208,7 @@ public class Modelo {
         return (-6.5 <= diferencia && diferencia <= -5.5);
     }
 
-    private boolean anticiclonIntenso() {
+    public boolean anticiclonIntenso() {
         Double a;
         if (historial.containsKey(ultimaMedicion.minusHours(1))) {
             a = historial.get(ultimaMedicion.minusHours(1)).getPresion();
@@ -220,7 +219,7 @@ public class Modelo {
         return (diferencia >= 1);
     }
 
-    private boolean anticiclonEntreBorrascas() {
+    public boolean anticiclonEntreBorrascas() {
         Double a;
         if (historial.containsKey(ultimaMedicion.minusDays(1))) {
             a = historial.get(ultimaMedicion.minusDays(1)).getPresion();
@@ -228,6 +227,7 @@ public class Modelo {
             return false;
         }
         Double diferencia = historial.get(ultimaMedicion).getPresion() - a;
+//        System.out.println(""+diferencia);
         return (5.5 <= diferencia && diferencia <= 6.5);
     }
 
@@ -242,8 +242,8 @@ public class Modelo {
         Gson gson = new GsonBuilder().registerTypeAdapter(
                 LocalDateTime.class, new LocalDateTimeAdaptador()).
                 setPrettyPrinting().create();
-        String json = gson.toJson(modelo);    
-        try ( FileWriter writer = new FileWriter(rutaJSON)) {
+        String json = gson.toJson(modelo);
+        try (FileWriter writer = new FileWriter(rutaJSON)) {
             writer.write(json);
             System.out.println(json);
         } catch (IOException e) {
@@ -265,18 +265,18 @@ public class Modelo {
                         new LocalDateTimeAdaptador())
                 .create();
         //Inicializamos un objeto a devolver
-        Modelo devolverM = null;        
-        try ( FileReader lector = new FileReader(rutaJSON)) {
+        Modelo devolverM = null;
+        try (FileReader lector = new FileReader(rutaJSON)) {
             /* Si no encuentra problemas leemos el fichero y lo pasamos a
                 hashMap*/
-            
+
             devolverM = gson.fromJson(lector, Modelo.class);
         } catch (IOException e) {
             //Si no encuentran ningún fichero es porque todavía no se ha creado
             e.printStackTrace();
             devolverM = new Modelo();
         }
-        
+
         return devolverM;
     }
 }

@@ -7,7 +7,9 @@ module es.alfredoysergio.barometros {
     requires java.base;
     requires org.controlsfx.controls;  
     requires java.prefs;
+    requires io.cucumber.java;
 
-    opens es.alfredoysergio.barometros to javafx.fxml,com.google.gson,org.controlsfx.controls;
+    opens es.alfredoysergio.barometros to javafx.fxml,com.google.gson,
+            org.controlsfx.controls, io.cucumber.java;
     exports es.alfredoysergio.barometros;
 }

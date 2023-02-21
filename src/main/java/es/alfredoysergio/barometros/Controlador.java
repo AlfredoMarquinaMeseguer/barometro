@@ -335,16 +335,16 @@ public class Controlador implements Initializable {
 
         String rutaIcono = "images/";
         switch (modelo.obtenerTiempo()) {
-            case ANTICICLON:
+            case ANTICICLON_INTENSO:
                 rutaIcono += "sunny.png";
                 break;
-            case ANTICICLON_ENTRE_BORRASCAS:
+            case ANTICICLON_SUAVE:
                 rutaIcono += "cloudy.png";
                 break;
-            case BORRASCA_LEJOS:
+            case BORRASCA_SUAVE:
                 rutaIcono += "rainy.png";
                 break;
-            case BORRASCA_PROFUNDA:
+            case BORRASCA_INTENSA:
                 rutaIcono += "heavy-rain_1.png";
                 break;
             default:
