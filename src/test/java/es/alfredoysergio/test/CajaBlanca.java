@@ -32,20 +32,20 @@ public class CajaBlanca {
 
     //doReturn(X).when(spy).method(any())
     Modelo testModelo = new Modelo();
-    Modelo spy;
-    @Test
-    public void testMockito() {
-        //Modelo testModelo = new Modelo();        
-        Modelo testModelo = mock(Modelo.class);
-        Modelo testModelo2 = new Modelo();
-        Modelo spy = Mockito.spy(testModelo2);
-//        Mockito.doReturn(new Modelo().obtenerTiempo()).when(testModelo).obtenerTiempo();
-        Mockito.doReturn(true).when(spy).borrascaIntensa();
-//        Mockito.doReturn(false).when(testModelo).borrascaLejos();
-//        Mockito.doReturn(false).when(testModelo).anticiclonIntenso();
-//        Mockito.doReturn(false).when(testModelo).anticiclonEntreBorrascas();
-        assertEquals(Modelo.Tiempo.BORRASCA_INTENSA, spy.obtenerTiempo());
-    }
+    Modelo spy = Mockito.spy(new Modelo());
+//    @Test
+//    public void testMockito() {
+//        //Modelo testModelo = new Modelo();        
+//        Modelo testModelo = mock(Modelo.class);
+//        Modelo testModelo2 = new Modelo();
+//        Modelo spy = Mockito.spy(testModelo2);
+////        Mockito.doReturn(new Modelo().obtenerTiempo()).when(testModelo).obtenerTiempo();
+//        Mockito.doReturn(true).when(spy).borrascaIntensa();
+////        Mockito.doReturn(false).when(testModelo).borrascaLejos();
+////        Mockito.doReturn(false).when(testModelo).anticiclonIntenso();
+////        Mockito.doReturn(false).when(testModelo).anticiclonEntreBorrascas();
+//        assertEquals(Modelo.Tiempo.BORRASCA_INTENSA, spy.obtenerTiempo());
+//    }
 
     @Cuando("borrascaIntensa devuelve True")
     public void borrasca_intensa_devuelve_true() {
@@ -56,7 +56,7 @@ public class CajaBlanca {
     @Entonces("obtenerMedicion devuelve Tiempo.BORRASCA_INTENSA")
     public void obtener_medicion_devuelve_tiempo_borrasca_intensa() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertEquals(Modelo.Tiempo.BORRASCA_INTENSA, spy.obtenerTiempo());
     }
 
     @Cuando("borrascaLejos devuelve True")
@@ -69,7 +69,7 @@ public class CajaBlanca {
     @Entonces("obtenerMedicion devuelve Tiempo.BORRASCA_SUAVE")
     public void obtener_medicion_devuelve_tiempo_borrasca_suave() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertEquals(Modelo.Tiempo.BORRASCA_SUAVE, spy.obtenerTiempo());
     }
 
     @Cuando("anticiclonIntenso devuelve True")
@@ -83,7 +83,7 @@ public class CajaBlanca {
     @Entonces("obtenerMedicion devuelve Tiempo.ANTICICLON_INTENSO")
     public void obtener_medicion_devuelve_tiempo_anticiclon_intenso() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertEquals(Modelo.Tiempo.ANTICICLON_INTENSO, spy.obtenerTiempo());
     }
 
     @Cuando("anticiclonEntreBorrascas devuelve True")
@@ -92,25 +92,28 @@ public class CajaBlanca {
         Mockito.doReturn(false).when(spy).borrascaIntensa();
         Mockito.doReturn(false).when(spy).borrascaLejos();
         Mockito.doReturn(false).when(spy).anticiclonIntenso();
-        Mockito.doReturn(true).when(spy).anticiclonIntenso();
+        Mockito.doReturn(true).when(spy).anticiclonEntreBorrascas();
     }
 
     @Entonces("obtenerMedicion devuelve Tiempo.ANTICICLON_SUAVE")
     public void obtener_medicion_devuelve_tiempo_anticiclon_suave() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertEquals(Modelo.Tiempo.ANTICICLON_SUAVE, spy.obtenerTiempo());
     }
 
     @Cuando("Todas las comprobaviones son falsas")
     public void todas_las_comprobaviones_son_falsas() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        Mockito.doReturn(false).when(spy).borrascaIntensa();
+        Mockito.doReturn(false).when(spy).borrascaLejos();
+        Mockito.doReturn(false).when(spy).anticiclonIntenso();
+        Mockito.doReturn(false).when(spy).anticiclonEntreBorrascas();
     }
 
     @Entonces("obtenerMedicion devuelve Tiempo.INSUFICIENTE")
     public void obtener_medicion_devuelve_tiempo_insuficiente() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertEquals(Modelo.Tiempo.INSUFICIENTE, spy.obtenerTiempo());
     }
 
 }
