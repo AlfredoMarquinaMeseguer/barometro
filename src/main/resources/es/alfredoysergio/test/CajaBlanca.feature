@@ -5,7 +5,7 @@ Escenario: borrascaIntensa es True
 Cuando borrascaIntensa devuelve True
 Entonces obtenerMedicion devuelve Tiempo.BORRASCA_INTENSA
 
-Escenario: borrascaLejos es True anteriores False
+Escenario: borrascaLejos es True anterior False
 Cuando borrascaLejos devuelve True
 Entonces obtenerMedicion devuelve Tiempo.BORRASCA_SUAVE
 
@@ -18,5 +18,5 @@ Cuando anticiclonEntreBorrascas devuelve True
 Entonces obtenerMedicion devuelve Tiempo.ANTICICLON_SUAVE
 
 Escenario: Todas devuelven False
-Cuando Todas las comprobaviones son falsas
+Cuando Todas las comprobaciones son falsas
 Entonces obtenerMedicion devuelve Tiempo.INSUFICIENTE

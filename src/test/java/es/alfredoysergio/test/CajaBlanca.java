@@ -31,7 +31,6 @@ import static org.mockito.Mockito.mock;
 public class CajaBlanca {
 
     //doReturn(X).when(spy).method(any())
-    Modelo testModelo = new Modelo();
     Modelo spy = Mockito.spy(new Modelo());
 //    @Test
 //    public void testMockito() {
@@ -47,6 +46,9 @@ public class CajaBlanca {
 //        assertEquals(Modelo.Tiempo.BORRASCA_INTENSA, spy.obtenerTiempo());
 //    }
 
+    /*
+     * Camino 1: 1 – 2 – 3 - 11
+     */
     @Cuando("borrascaIntensa devuelve True")
     public void borrasca_intensa_devuelve_true() {
         // Write code here that turns the phrase above into concrete actions
@@ -59,6 +61,10 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.BORRASCA_INTENSA, spy.obtenerTiempo());
     }
 
+    
+    /*
+     * Camino 2: 1 - 2 - 4 - 5 - 11
+     */
     @Cuando("borrascaLejos devuelve True")
     public void borrasca_lejos_devuelve_true() {
         // Write code here that turns the phrase above into concrete actions
@@ -72,6 +78,9 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.BORRASCA_SUAVE, spy.obtenerTiempo());
     }
 
+    /*
+     * Camino 3: 1 - 2 - 4 - 6 - 7 - 11
+     */
     @Cuando("anticiclonIntenso devuelve True")
     public void anticiclon_intenso_devuelve_true() {
         // Write code here that turns the phrase above into concrete actions
@@ -86,6 +95,9 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.ANTICICLON_INTENSO, spy.obtenerTiempo());
     }
 
+    /*
+     * Camino 4: 1 - 2 - 4 - 6 - 8 - 9 - 11
+     */
     @Cuando("anticiclonEntreBorrascas devuelve True")
     public void anticiclon_entre_borrascas_devuelve_true() {
         // Write code here that turns the phrase above into concrete actions
@@ -101,9 +113,11 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.ANTICICLON_SUAVE, spy.obtenerTiempo());
     }
 
-    @Cuando("Todas las comprobaviones son falsas")
-    public void todas_las_comprobaviones_son_falsas() {
-        // Write code here that turns the phrase above into concrete actions
+    /*
+     * Camino 5: 1 - 2 - 4 - 6 - 8 - 10 - 11
+     */
+    @Cuando("Todas las comprobaciones son falsas")
+    public void todas_las_comprobaviones_son_falsas() {        
         Mockito.doReturn(false).when(spy).borrascaIntensa();
         Mockito.doReturn(false).when(spy).borrascaLejos();
         Mockito.doReturn(false).when(spy).anticiclonIntenso();
@@ -112,7 +126,6 @@ public class CajaBlanca {
 
     @Entonces("obtenerMedicion devuelve Tiempo.INSUFICIENTE")
     public void obtener_medicion_devuelve_tiempo_insuficiente() {
-        // Write code here that turns the phrase above into concrete actions
         assertEquals(Modelo.Tiempo.INSUFICIENTE, spy.obtenerTiempo());
     }
 
