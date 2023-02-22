@@ -23,7 +23,7 @@ public class App extends Application {
     
     //Las preferncias no funcionan, pero yo te la pongo igual
     Preferences preferencias;
-
+Controlador controlador;
     @Override
     public void start(Stage stage) throws IOException {
         preferencias = Preferences.userRoot();
@@ -49,7 +49,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("Barometro");
         
-        Controlador controlador = fxmlLoader.getController();
+        controlador = fxmlLoader.getController();
         
         stage.setOnCloseRequest((WindowEvent event) -> {
             // Aqui abría guardado las preferencias si funcionaran
@@ -59,6 +59,10 @@ public class App extends Application {
         });
 
         stage.show();
+    }
+    
+    public Controlador getControlador(){
+        return controlador;
     }
 
     static void setRoot(String fxml) throws IOException {

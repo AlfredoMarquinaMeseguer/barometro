@@ -1,0 +1,22 @@
+#language: es
+Requisito: Comprobar funcionamiento de los iconos en la interfaz
+
+Escenario: una borrasca intensa se acerca
+Cuando el barometro detecta una borrasca intensa 
+Entonces la interfaz muestra el icono de borrasca intensa
+
+Escenario: una borrasca suave se acerca
+Cuando el barometro preve una borrasca suave 
+Entonces la interfaz muestra el icono de borrasca suave
+
+Escenario: un anticiclon intenso se acerca
+Cuando el barometro preve un anticiclon intenso acercandose
+Entonces la interfaz muestra el icono de anticiclon intenso
+
+Escenario: un anticiclon suave se acerca
+Cuando el barometro preve un anticiclon suave 
+Entonces la interfaz muestra el icono de anticiclon suave
+
+Escenario: no tenemos suficiente informacion
+Cuando no tiene suficiente informacion para prever el tiempo
+Entonces la interfaz muestra el icono de error

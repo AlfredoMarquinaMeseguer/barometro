@@ -2,13 +2,11 @@
 Requisito: las borrascas intensas son de diferencias de -1 o menores 
 y los  anticiclones intensos son de diferencias de +1 o mayores
 
-Escenario: el historial solo tiene dos mediciones y una se hizo una 
-hora anterior a la otra
+Escenario: Medicion hora anterior -6.6
 Cuando la medicion de hace una hora es 6.6 mmHg menor que la mas reciente
 Entonces se acerca una borrasca intensa
 
-Escenario: el historial solo tiene dos mediciones y una se hizo una 
-hora anterior a la otra
+Escenario: Medicion hora anterior -6.5
 Cuando la medicion de hace una hora es 6.5 mmHg menor que la mas reciente
 Entonces se acerca una borrasca intensa
 

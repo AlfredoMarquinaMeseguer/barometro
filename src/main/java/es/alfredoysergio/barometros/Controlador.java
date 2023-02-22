@@ -176,6 +176,43 @@ public class Controlador implements Initializable {
      */
     private String preferencias;
     
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        preferencias =  rb.getLocale().getLanguage().toUpperCase();        
+        
+        SpinnerValueFactory<Integer> valueFactory
+                = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
+
+        spHora.setValueFactory(valueFactory);
+        modelo = Modelo.cargarModelo(Controlador.RUTA_JSON);
+        // En el nombre pone label mal, culpo a Sergio
+        escribirPresionRef(modelo.getPresionReferencia());
+        
+        
+        //validationSupport.setErrorDecorationEnabled(false);
+        ///////Aplicamos Validacion en los TextFields
+        //Altura
+        validationSupport.registerValidator(tfAltura, 
+                Validator.createRegexValidator(
+                        rb.getString("validacion.Altura"), 
+                        "[0-9]+", 
+                        Severity.ERROR));
+        
+        //Presion
+        validationSupport.registerValidator(tfPresion, 
+                Validator.createRegexValidator(
+                        rb.getString("validacion.Presion"), 
+                        "[0-9]+", 
+                        Severity.ERROR));
+        
+        ///////Aplicamos Validacion en el Date Picker
+        validationSupport.registerValidator(datePickerFecha, 
+                Validator.createEmptyValidator(
+                        rb.getString("validacion.DatePicker")));
+        
+        
+    }
+
     /**
      * Acción realizada al pulsar el botón Actualizar del barómetro. Crea un 
      * objeto Medición a partir de la presión obtenida de la etiqueta presión,
@@ -184,7 +221,7 @@ public class Controlador implements Initializable {
      * @param event 
      */
     @FXML
-    void actualizar(ActionEvent event) throws Exception{
+    public void actualizar(ActionEvent event) throws Exception{
         Double presion;
         boolean siMmhg;
         LocalDateTime fecha;
@@ -197,12 +234,10 @@ public class Controlador implements Initializable {
         Medicion a = annadirMedicion(fecha, presion, siMmhg);
         historial.appendText(a.toString() + "\n");
         // Esto no funciona
-         Image image = new Image(actualizarIcono());
-        System.out.println(image.getUrl());
+        Image image = new Image(actualizarIcono());
         imageViewIcono.setImage(image);
         //imageViewIcono.setImage(new Image(actualizarIcono()));
     }
-
     
     /**
      * 
@@ -261,46 +296,8 @@ public class Controlador implements Initializable {
         // Exporta el fichero
         //Modelo.guardarModelo(this.modelo, rutacogia);
     }
+       
     
-    
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        preferencias =  rb.getLocale().getLanguage().toUpperCase();        
-        
-        SpinnerValueFactory<Integer> valueFactory
-                = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
-
-        spHora.setValueFactory(valueFactory);
-        modelo = Modelo.cargarModelo(Controlador.RUTA_JSON);
-        // En el nombre pone label mal, culpo a Sergio
-        escribirPresionRef(modelo.getPresionReferencia());
-        
-        
-        //validationSupport.setErrorDecorationEnabled(false);
-        ///////Aplicamos Validacion en los TextFields
-        //Altura
-        validationSupport.registerValidator(tfAltura, 
-                Validator.createRegexValidator(
-                        rb.getString("validacion.Altura"), 
-                        "[0-9]+", 
-                        Severity.ERROR));
-        
-        //Presion
-        validationSupport.registerValidator(tfPresion, 
-                Validator.createRegexValidator(
-                        rb.getString("validacion.Presion"), 
-                        "[0-9]+", 
-                        Severity.ERROR));
-        
-        ///////Aplicamos Validacion en el Date Picker
-        validationSupport.registerValidator(datePickerFecha, 
-                Validator.createEmptyValidator(
-                        rb.getString("validacion.DatePicker")));
-        
-        
-    }
-
     
     /**
      * Getter del objeto Modelo 
@@ -322,7 +319,7 @@ public class Controlador implements Initializable {
      * Getter preferencia de idioma del usuario
      * @return preferencia de idioma del usuario
      */
-    String getPreferencias() {
+    public String getPreferencias() {
         return preferencias;
     }
 
@@ -363,7 +360,7 @@ public class Controlador implements Initializable {
      * @param b valor booleano que indica si la presión está en mmHg o hPa
      * @return un nuevo objeto Medicion que representa la medida añadida
      */
-    private Medicion annadirMedicion(LocalDateTime tiempo, Double presion,
+    public Medicion annadirMedicion(LocalDateTime tiempo, Double presion,
             boolean siMmhg) {
         if (!siMmhg) {
             presion *= 3.0 / 4;
@@ -460,6 +457,140 @@ public class Controlador implements Initializable {
                                         presionReferencia) + " mmhg");
     }
 
-    
+    //**************************************************************************
+    //Getters
+    //**************************************************************************
 
+    public Button getBtActualizar() {
+        return btActualizar;
+    }
+
+    public Button getBtCalibrar() {
+        return btCalibrar;
+    }
+
+    public RadioButton getBthpa() {
+        return bthpa;
+    }
+
+    public RadioButton getBtmmhg() {
+        return btmmhg;
+    }
+
+    public DatePicker getDatePickerFecha() {
+        return datePickerFecha;
+    }
+
+    public MenuItem getEspannol() {
+        return espannol;
+    }
+
+    public MenuItem getExptFichero() {
+        return exptFichero;
+    }
+
+    public MenuItem getFrances() {
+        return frances;
+    }
+
+    public TextArea getHistorial() {
+        return historial;
+    }
+
+    public ImageView getImageViewIcono() {
+        return imageViewIcono;
+    }
+
+    public MenuItem getIngles() {
+        return ingles;
+    }
+
+    public Label getlAltura() {
+        return lAltura;
+    }
+
+    public Label getlCalibrar() {
+        return lCalibrar;
+    }
+
+    public Label getlFecha() {
+        return lFecha;
+    }
+
+    public Label getlHistorial() {
+        return lHistorial;
+    }
+
+    public Label getlHora() {
+        return lHora;
+    }
+
+    public Label getlIcono() {
+        return lIcono;
+    }
+
+    public Label getlMedicion() {
+        return lMedicion;
+    }
+
+    public Label getlPresion() {
+        return lPresion;
+    }
+
+    public Label getlReferencia() {
+        return lReferencia;
+    }
+
+    public Label getLabbelPresionMmhg() {
+        return labbelPresionMmhg;
+    }
+
+    public Menu getmAccesibilidad() {
+        return mAccesibilidad;
+    }
+
+    public Menu getmFichero() {
+        return mFichero;
+    }
+
+    public Menu getmIdiomas() {
+        return mIdiomas;
+    }
+
+    public Spinner<Integer> getSpHora() {
+        return spHora;
+    }
+
+    public MenuItem getTextoAVoz() {
+        return textoAVoz;
+    }
+
+    public TextField getTfAltura() {
+        return tfAltura;
+    }
+
+    public TextField getTfPresion() {
+        return tfPresion;
+    }
+
+    public ToggleGroup getTgMedida() {
+        return tgMedida;
+    }
+
+    public static String getRUTA_JSON() {
+        return RUTA_JSON;
+    }
+
+    public static double getPRESION_NIVEL_MAR_MMHG() {
+        return PRESION_NIVEL_MAR_MMHG;
+    }
+
+    public ValidationSupport getValidationSupport() {
+        return validationSupport;
+    }
+
+    public ResourceBundle getI18n() {
+        return i18n;
+    }
+    
 }
