@@ -14,6 +14,7 @@ import java.util.Objects;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.hamcrest.Description;
 import org.hamcrest.core.AnyOf;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -57,6 +58,7 @@ public class TestInterfaz extends ApplicationTest {
 
     public void actualizarIcono() {
         // Rellenamos los campos que usa la función que cambia la el icono de ls
+        
         controlador.getBtmmhg().setSelected(true);
         controlador.getTfPresion().setText("0");
         controlador.getDatePickerFecha().setValue(LocalDate.now());
@@ -115,60 +117,60 @@ public class TestInterfaz extends ApplicationTest {
     
     
     /*
-    Los test realizados con cucumber no activan testfx por lo que no funcionan.
-    Aunque son practicamente idénticos a los anteriores. 
+    * Los test realizados con cucumber no activan testfx por lo que no funcionan.
+    * Aunque son practicamente idénticos a los anteriores. 
     */
-    /*
-    @Cuando("el barometro detecta una borrasca intensa")
-    public void el_barometro_detecta_una_borrasca_intensa() {
-        // Write code here that turns the phrase above into concrete actions
-        cambiarReturnMock(Tiempo.BORRASCA_INTENSA);
-    }
-
-    @Entonces("la interfaz muestra el icono de borrasca intensa")
-    public void la_interfaz_muestra_el_icono_de_borrasca_intensa() {        
-        verificarIcono(BORRASCA_INTENSA_IMG);
-    }
-
-    @Cuando("el barometro preve una borrasca suave")
-    public void el_barometro_preve_una_borrasca_suave() {
-        // Write code here that turns the phrase above into concrete actions
-        cambiarReturnMock(Tiempo.BORRASCA_SUAVE);
-    }
-
-    @Entonces("la interfaz muestra el icono de borrasca suave")
-    public void la_interfaz_muestra_el_icono_de_borrasca_suave() {
-        verificarIcono(BORRASCA_SUAVE_IMG);
-    }
-
-    @Cuando("el barometro preve un anticiclon intenso acercandose")
-    public void el_barometro_preve_un_anticiclon_intenso_acercandose() {
-        // Write code here that turns the phrase above into concrete actions
-        cambiarReturnMock(Tiempo.ANTICICLON_INTENSO);
-    }
-
-    @Entonces("la interfaz muestra el icono de anticiclon intenso")
-    public void la_interfaz_muestra_el_icono_de_anticiclon_intenso() {
-        verificarIcono(ANTICICLON_INTENSO_IMG);
-    }
-
-    @Cuando("el barometro preve un anticiclon suave")
-    public void el_barometro_preve_un_anticiclon_suave() {
-        cambiarReturnMock(Tiempo.ANTICICLON_SUAVE);
-    }
-
-    @Entonces("la interfaz muestra el icono de anticiclon suave")
-    public void la_interfaz_muestra_el_icono_de_anticiclon_suave() {
-        verificarIcono(ANTICICLON_SUAVE_IMG);
-    }
-
-    @Cuando("no tiene suficiente informacion para prever el tiempo")
-    public void no_tiene_suficiente_informacion_para_prever_el_tiempo() {
-        cambiarReturnMock(Tiempo.INSUFICIENTE);
-    }
-
-    @Entonces("la interfaz muestra el icono de error")
-    public void la_interfaz_muestra_el_icono_de_error() {
-        verificarIcono(INSUFICIENTE_IMG);
-    }*/
+    
+//    @Cuando("el barometro detecta una borrasca intensa")
+//    public void el_barometro_detecta_una_borrasca_intensa() {
+//        // Write code here that turns the phrase above into concrete actions
+//        cambiarReturnMock(Tiempo.BORRASCA_INTENSA);
+//    }
+//
+//    @Entonces("la interfaz muestra el icono de borrasca intensa")
+//    public void la_interfaz_muestra_el_icono_de_borrasca_intensa() {        
+//        verificarIcono(BORRASCA_INTENSA_IMG);
+//    }
+//
+//    @Cuando("el barometro preve una borrasca suave")
+//    public void el_barometro_preve_una_borrasca_suave() {
+//        // Write code here that turns the phrase above into concrete actions
+//        cambiarReturnMock(Tiempo.BORRASCA_SUAVE);
+//    }
+//
+//    @Entonces("la interfaz muestra el icono de borrasca suave")
+//    public void la_interfaz_muestra_el_icono_de_borrasca_suave() {
+//        verificarIcono(BORRASCA_SUAVE_IMG);
+//    }
+//
+//    @Cuando("el barometro preve un anticiclon intenso acercandose")
+//    public void el_barometro_preve_un_anticiclon_intenso_acercandose() {
+//        // Write code here that turns the phrase above into concrete actions
+//        cambiarReturnMock(Tiempo.ANTICICLON_INTENSO);
+//    }
+//
+//    @Entonces("la interfaz muestra el icono de anticiclon intenso")
+//    public void la_interfaz_muestra_el_icono_de_anticiclon_intenso() {
+//        verificarIcono(ANTICICLON_INTENSO_IMG);
+//    }
+//
+//    @Cuando("el barometro preve un anticiclon suave")
+//    public void el_barometro_preve_un_anticiclon_suave() {
+//        cambiarReturnMock(Tiempo.ANTICICLON_SUAVE);
+//    }
+//
+//    @Entonces("la interfaz muestra el icono de anticiclon suave")
+//    public void la_interfaz_muestra_el_icono_de_anticiclon_suave() {
+//        verificarIcono(ANTICICLON_SUAVE_IMG);
+//    }
+//
+//    @Cuando("no tiene suficiente informacion para prever el tiempo")
+//    public void no_tiene_suficiente_informacion_para_prever_el_tiempo() {
+//        cambiarReturnMock(Tiempo.INSUFICIENTE);
+//    }
+//
+//    @Entonces("la interfaz muestra el icono de error")
+//    public void la_interfaz_muestra_el_icono_de_error() {
+//        verificarIcono(INSUFICIENTE_IMG);
+//    }
 }

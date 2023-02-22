@@ -9,6 +9,7 @@ import es.alfredoysergio.barometros.Modelo;
 import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Entonces;
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  *
@@ -45,6 +46,7 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.BORRASCA_INTENSA, espia.obtenerTiempo());
     }
 
+  
     /*
      * Camino 2: 1 - 2 - 4 - 5 - 11
      */
@@ -61,12 +63,13 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.BORRASCA_SUAVE, espia.obtenerTiempo());
     }
 
+  
+
     /*
      * Camino 3: 1 - 2 - 4 - 6 - 7 - 11
      */
     @Cuando("anticiclonIntenso devuelve True")
     public void anticiclon_intenso_devuelve_true() {
-        // Write code here that turns the phrase above into concrete actions
         Mockito.doReturn(false).when(espia).borrascaIntensa();
         Mockito.doReturn(false).when(espia).borrascaLejos();
         Mockito.doReturn(true).when(espia).anticiclonIntenso();
@@ -74,9 +77,9 @@ public class CajaBlanca {
 
     @Entonces("obtenerMedicion devuelve Tiempo.ANTICICLON_INTENSO")
     public void obtener_medicion_devuelve_tiempo_anticiclon_intenso() {
-        // Write code here that turns the phrase above into concrete actions
         assertEquals(Modelo.Tiempo.ANTICICLON_INTENSO, espia.obtenerTiempo());
     }
+
 
     /*
      * Camino 4: 1 - 2 - 4 - 6 - 8 - 9 - 11
@@ -96,6 +99,7 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.ANTICICLON_SUAVE, espia.obtenerTiempo());
     }
 
+
     /*
      * Camino 5: 1 - 2 - 4 - 6 - 8 - 10 - 11
      */
@@ -112,4 +116,5 @@ public class CajaBlanca {
         assertEquals(Modelo.Tiempo.INSUFICIENTE, espia.obtenerTiempo());
     }
 
+  
 }

@@ -4,7 +4,6 @@
  */
 package es.alfredoysergio.barometros;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -57,9 +56,20 @@ import org.controlsfx.validation.Validator;
  * @author Alfredo Marquina Meseguer
  */
 public class Controlador implements Initializable {
-   
-    
- @FXML
+
+    private static final Double CONVERTIR = 1.0 / 11.0;
+    private static final Double HPA_A_MMHG = 3.0 / 4.0;
+
+    /**
+     * Ruta de guardado del fichero Json del historial
+     */
+    public static final String RUTA_JSON = "src/main/resources/json/file.json";
+    /**
+     * Presion al nivel del mar
+     */
+    public static final double PRESION_NIVEL_MAR_MMHG = 760.0;
+
+    @FXML
     private Button btActualizar;
 
     @FXML
@@ -145,41 +155,31 @@ public class Controlador implements Initializable {
 
     @FXML
     private ToggleGroup tgMedida;
-    
-        
+
     /**
-     * Ruta de guardado del fichero Json del historial
-     */
-    public static final String RUTA_JSON = "src/main/resources/json/file.json";        
-    /**
-     * Presion al nivel del mar
-     */
-    public static final double PRESION_NIVEL_MAR_MMHG = 760.0;        
-        
-     /**
      * El objeto Vista asociado a este objeto Controles.
      */
-    Modelo modelo;    
+    Modelo modelo;
 
     /**
      * Validador para los campos rellenables
      */
     private ValidationSupport validationSupport = new ValidationSupport();
-    
+
     /**
-     * Resouce  Bundel para la internacionalización
+     * Resouce Bundel para la internacionalización
      */
     private ResourceBundle i18n;
-    
+
     /**
-     * Para guardar las preferencias cuando se cierra la  
+     * Para guardar las preferencias cuando se cierra la
      */
     private String preferencias;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        preferencias =  rb.getLocale().getLanguage().toUpperCase();        
-        
+        preferencias = rb.getLocale().getLanguage().toUpperCase();
+
         SpinnerValueFactory<Integer> valueFactory
                 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
 
@@ -187,41 +187,39 @@ public class Controlador implements Initializable {
         modelo = Modelo.cargarModelo(Controlador.RUTA_JSON);
         // En el nombre pone label mal, culpo a Sergio
         escribirPresionRef(modelo.getPresionReferencia());
-        
-        
-        //validationSupport.setErrorDecorationEnabled(false);
+
         ///////Aplicamos Validacion en los TextFields
         //Altura
-        validationSupport.registerValidator(tfAltura, 
+        validationSupport.registerValidator(tfAltura,
                 Validator.createRegexValidator(
-                        rb.getString("validacion.Altura"), 
-                        "[0-9]+", 
+                        rb.getString("validacion.Altura"),
+                        "[0-9]+",
                         Severity.ERROR));
-        
+
         //Presion
-        validationSupport.registerValidator(tfPresion, 
+        validationSupport.registerValidator(tfPresion,
                 Validator.createRegexValidator(
-                        rb.getString("validacion.Presion"), 
-                        "[0-9]+", 
+                        rb.getString("validacion.Presion"),
+                        "[0-9]+",
                         Severity.ERROR));
-        
+
         ///////Aplicamos Validacion en el Date Picker
-        validationSupport.registerValidator(datePickerFecha, 
+        validationSupport.registerValidator(datePickerFecha,
                 Validator.createEmptyValidator(
                         rb.getString("validacion.DatePicker")));
-        
-        
+
     }
 
     /**
-     * Acción realizada al pulsar el botón Actualizar del barómetro. Crea un 
+     * Acción realizada al pulsar el botón Actualizar del barómetro. Crea un
      * objeto Medición a partir de la presión obtenida de la etiqueta presión,
-     * la selección de los botones de rádio, las fecha escogida y la hora del 
+     * la selección de los botones de rádio, las fecha escogida y la hora del
      * spinner.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    public void actualizar(ActionEvent event) throws Exception{
+    public void actualizar(ActionEvent event) throws Exception {
         Double presion;
         boolean siMmhg;
         LocalDateTime fecha;
@@ -234,31 +232,31 @@ public class Controlador implements Initializable {
         Medicion a = annadirMedicion(fecha, presion, siMmhg);
         historial.appendText(a.toString() + "\n");
         // Esto no funciona
-        Image image = new Image(actualizarIcono());
-        imageViewIcono.setImage(image);
-        //imageViewIcono.setImage(new Image(actualizarIcono()));
+        imageViewIcono.setImage(new Image(actualizarIcono()));
     }
-    
+
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     void calibrarAltura(ActionEvent event) {
         Double nuevaReferencia;
-        nuevaReferencia = 760 - (Double.parseDouble(tfAltura.getText())/11);
+        nuevaReferencia = PRESION_NIVEL_MAR_MMHG
+                - (Double.valueOf(tfAltura.getText()) * CONVERTIR);
         modelo.setPresionReferencia(nuevaReferencia);
         escribirPresionRef(nuevaReferencia);
     }
 
     @FXML
     void activarTextoAVoz(ActionEvent event) {
-
+        System.out.println("Nothing");
     }
 
     /**
      * Cambia el idioma a francés
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     void cambiarAFranchute(ActionEvent event) {
@@ -268,7 +266,8 @@ public class Controlador implements Initializable {
 
     /**
      * Cambia el idioma a español
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     void cambiarEspannol(ActionEvent event) {
@@ -278,7 +277,8 @@ public class Controlador implements Initializable {
 
     /**
      * Cambia el idioma a inglés
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     void cambiarIngles(ActionEvent event) {
@@ -288,7 +288,8 @@ public class Controlador implements Initializable {
 
     /**
      * Exporta el JSON del historial
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     void exportarFichero(ActionEvent event) {
@@ -296,27 +297,26 @@ public class Controlador implements Initializable {
         // Exporta el fichero
         //Modelo.guardarModelo(this.modelo, rutacogia);
     }
-       
-    
-    
+
     /**
-     * Getter del objeto Modelo 
+     * Getter del objeto Modelo
+     *
      * @return objeto Modelo del Controlador
      */
     public Modelo getModelo() {
         return modelo;
     }
 
-    
     /**
-     * Setter del objeto Modelo      * 
+     * Setter del objeto Modelo *
      */
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
-   
+
     /**
      * Getter preferencia de idioma del usuario
+     *
      * @return preferencia de idioma del usuario
      */
     public String getPreferencias() {
@@ -357,13 +357,13 @@ public class Controlador implements Initializable {
      *
      * @param tiempo la hora de la medición
      * @param presion la presión de la medición
-     * @param b valor booleano que indica si la presión está en mmHg o hPa
+     * @param siMmhg valor booleano que indica si la presión está en mmHg o hPa
      * @return un nuevo objeto Medicion que representa la medida añadida
      */
     public Medicion annadirMedicion(LocalDateTime tiempo, Double presion,
             boolean siMmhg) {
         if (!siMmhg) {
-            presion *= 3.0 / 4;
+            presion *= HPA_A_MMHG;
         }
         modelo.annadirMedicion(tiempo, presion);
         return new Medicion(tiempo, presion);
@@ -381,29 +381,28 @@ public class Controlador implements Initializable {
      */
     public LocalDateTime crearLocalDateTime(DatePicker fecha,
             Spinner<Integer> hora) {
-        return LocalDateTime.of(fecha.getValue(), 
-                LocalTime.of(hora.getValue(), 00));
+        return LocalDateTime.of(fecha.getValue(),
+                LocalTime.of(hora.getValue(), 0));
     }
-    
+
     /**
      * Cambia el idioma de los controles al idioma especificado en el locale
+     *
      * @param locale Locale del idioma a cambiar
      */
-    public void cambiarIdioma(Locale locale){
+    public void cambiarIdioma(Locale locale) {
         i18n = ResourceBundle.getBundle(App.RUTA_BUNDLE, locale);
-        
+
         ////// Parte de añadir calibración del barómetro
         lCalibrar.setText(i18n.getString("calibracion"));
         lReferencia.setText(i18n.getString("referencia"));
         lAltura.setText(i18n.getString("altura"));
         btCalibrar.setText(i18n.getString("calibrar"));
         // Accesibilidad
-        btCalibrar.accessibleTextProperty().setValue(i18n.getString
-                                               ("accesibilidad.BtCalibrar"));
+        btCalibrar.accessibleTextProperty().setValue(i18n.getString("accesibilidad.BtCalibrar"));
         // Ayuda
-        btCalibrar.accessibleHelpProperty().setValue(i18n.getString
-                                               ("ayuda.BtCalibrar"));
-        
+        btCalibrar.accessibleHelpProperty().setValue(i18n.getString("ayuda.BtCalibrar"));
+
         ////// Parte de añadir Medicion
         lMedicion.setText(i18n.getString("medicion"));
         lPresion.setText(i18n.getString("presion"));
@@ -420,47 +419,43 @@ public class Controlador implements Initializable {
         datePickerFecha.accessibleTextProperty().setValue(
                 i18n.getString("accesibilidad.DatePicker"));
         spHora.accessibleTextProperty().setValue(
-                i18n.getString("accesibilidad.SpHora"));        
+                i18n.getString("accesibilidad.SpHora"));
         btActualizar.accessibleTextProperty().setValue(
                 i18n.getString("accesibilidad.BtActualizar"));
         // Ayuda
-        btActualizar.accessibleHelpProperty().setValue(i18n.getString
-                                               ("ayuda.BtActualizar"));
-        
+        btActualizar.accessibleHelpProperty().setValue(i18n.getString("ayuda.BtActualizar"));
+
         ////// Parte de icono
-        lIcono.setText(i18n.getString("icono"));        
-        
+        lIcono.setText(i18n.getString("icono"));
+
         ////// Parte de Historial
         lHistorial.setText(i18n.getString("historial"));
         //Ayuda
-        historial.accessibleHelpProperty().setValue(i18n.getString
-                                               ("ayuda.TAHistorial"));
-        
-        
+        historial.accessibleHelpProperty().setValue(i18n.getString("ayuda.TAHistorial"));
+
         ////// Menu
         ////////// Fichero
         mFichero.setText(i18n.getString("fichero"));
         exptFichero.setText(i18n.getString("exportar"));
         ////////// Accesibilidad
         mAccesibilidad.setText(i18n.getString("accesibilidad"));
-        textoAVoz.setText(i18n.getString("activarVoz"));        
+        textoAVoz.setText(i18n.getString("activarVoz"));
         ////////// Idiomas
         mIdiomas.setText(i18n.getString("idioma"));
         espannol.setText(i18n.getString("espannol"));
         ingles.setText(i18n.getString("ingles"));
         frances.setText(i18n.getString("frances"));
-        
+
     }
 
     private void escribirPresionRef(Double presionReferencia) {
-        labbelPresionMmhg.setText(String.format("%.2f", 
-                                        presionReferencia) + " mmhg");
+        labbelPresionMmhg.setText(String.format("%.2f",
+                presionReferencia) + " mmhg");
     }
 
     //**************************************************************************
     //Getters
     //**************************************************************************
-
     public Button getBtActualizar() {
         return btActualizar;
     }
@@ -577,14 +572,6 @@ public class Controlador implements Initializable {
         return tgMedida;
     }
 
-    public static String getRUTA_JSON() {
-        return RUTA_JSON;
-    }
-
-    public static double getPRESION_NIVEL_MAR_MMHG() {
-        return PRESION_NIVEL_MAR_MMHG;
-    }
-
     public ValidationSupport getValidationSupport() {
         return validationSupport;
     }
@@ -592,5 +579,5 @@ public class Controlador implements Initializable {
     public ResourceBundle getI18n() {
         return i18n;
     }
-    
+
 }
