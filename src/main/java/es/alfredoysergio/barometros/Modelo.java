@@ -34,7 +34,12 @@ public class Modelo {
     public enum Tiempo {
         BORRASCA_SUAVE, BORRASCA_INTENSA, ANTICICLON_INTENSO, ANTICICLON_SUAVE,
         INSUFICIENTE
-    };
+    }
+
+    private static final double LIM_SUP_CLIMA_SUAVE = 6.5;
+    private static final double LIM_INF_CLIMA_SUAVE = 5.5;
+    private static final double LIM_CLIMA_INTENSO = 1.0;
+    public static final double PRESION_REF_NIVEL_MAR = 760.0;
 
     private HashMap<LocalDateTime, Medicion> historial;
     /**
@@ -77,8 +82,9 @@ public class Modelo {
     }
 
     public Modelo() {
-        this.ultimaMedicion = LocalDateTime.of(0, Month.MARCH, 1, 0, 0);
-        this.presionReferencia = 760.0;
+        this.ultimaMedicion = LocalDateTime.of(0, Month.JANUARY,
+                1, 0, 0);
+        this.presionReferencia = PRESION_REF_NIVEL_MAR;
         this.historial = new HashMap<>();
     }
 
@@ -135,7 +141,8 @@ public class Modelo {
         }
 
         if (this.presionReferencia == null) {
-            this.presionReferencia = 760.0;
+
+            this.presionReferencia = PRESION_REF_NIVEL_MAR;
         }
 
         if (this.historial == null) {
@@ -170,9 +177,9 @@ public class Modelo {
             devolver = Tiempo.BORRASCA_INTENSA;
         } else if (anticiclonIntenso()) {
             devolver = Tiempo.ANTICICLON_INTENSO;
-        } else if (borrascaLejos()) {
+        } else if (borrascaSuave()) {
             devolver = Tiempo.BORRASCA_SUAVE;
-        } else if (anticiclonEntreBorrascas()) {
+        } else if (anticiclonSuave()) {
             devolver = Tiempo.ANTICICLON_SUAVE;
         } else {
             devolver = Tiempo.INSUFICIENTE;
@@ -187,56 +194,56 @@ public class Modelo {
      * @return
      */
     public boolean borrascaIntensa() {
-        Double a;
+        Double anterior;
         if (historial.containsKey(ultimaMedicion.minusHours(1))) {
-            a = historial.get(ultimaMedicion.minusHours(1)).getPresion();
+            anterior = historial.get(ultimaMedicion.minusHours(1))
+                    .getPresion();
         } else {
             return false;
         }
-        Double diferencia = historial.get(ultimaMedicion).getPresion() - a;
-        return (diferencia <= -1);
+        Double diferencia = historial.get(ultimaMedicion).getPresion() - anterior;
+        return (diferencia <= -LIM_CLIMA_INTENSO);
     }
 
-    public boolean borrascaLejos() {
-        Double a;
+    public boolean borrascaSuave() {
+        Double anterior;
         if (historial.containsKey(ultimaMedicion.minusDays(1))) {
-            a = historial.get(ultimaMedicion.minusDays(1)).getPresion();
+            anterior = historial.get(ultimaMedicion.minusDays(1)).getPresion();
         } else {
             return false;
         }
-        Double diferencia = historial.get(ultimaMedicion).getPresion() - a;
-        return (-6.5 <= diferencia && diferencia <= -5.5);
+        Double diferencia = historial.get(ultimaMedicion).getPresion() - anterior;
+        return (-LIM_INF_CLIMA_SUAVE <= diferencia
+                && diferencia <= -LIM_SUP_CLIMA_SUAVE);
     }
 
     public boolean anticiclonIntenso() {
-        Double a;
+        Double anterior;
         if (historial.containsKey(ultimaMedicion.minusHours(1))) {
-            a = historial.get(ultimaMedicion.minusHours(1)).getPresion();
+            anterior = historial.get(ultimaMedicion.minusHours(1)).getPresion();
         } else {
             return false;
         }
-        Double diferencia = historial.get(ultimaMedicion).getPresion() - a;
-        return (diferencia >= 1);
+        Double diferencia = historial.get(ultimaMedicion).getPresion() - anterior;
+        return (diferencia >= LIM_CLIMA_INTENSO);
     }
 
-    public boolean anticiclonEntreBorrascas() {
-        Double a;
+    public boolean anticiclonSuave() {
+        Double anterior;
         if (historial.containsKey(ultimaMedicion.minusDays(1))) {
-            a = historial.get(ultimaMedicion.minusDays(1)).getPresion();
+            anterior = historial.get(ultimaMedicion.minusDays(1)).getPresion();
         } else {
             return false;
         }
-        Double diferencia = historial.get(ultimaMedicion).getPresion() - a;
-//        System.out.println(""+diferencia);
-        return (5.5 <= diferencia && diferencia <= 6.5);
+        Double diferencia = historial.get(ultimaMedicion).getPresion() - anterior;
+        return (LIM_INF_CLIMA_SUAVE <= diferencia && diferencia <= LIM_SUP_CLIMA_SUAVE);
     }
 
     // Métodos estaticos
     /**
-     * Guardar el fichero JSON especificado en la variable
      *
-     *
-     *
+     * @param modelo
+     * @param rutaJSON
      */
     public static void guardarModelo(Modelo modelo, String rutaJSON) {
         Gson gson = new GsonBuilder().registerTypeAdapter(
@@ -245,7 +252,6 @@ public class Modelo {
         String json = gson.toJson(modelo);
         try (FileWriter writer = new FileWriter(rutaJSON)) {
             writer.write(json);
-            System.out.println(json);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -258,14 +264,13 @@ public class Modelo {
      *
      */
     public static Modelo cargarModelo(String rutaJSON) {
-        System.out.println("Dentro de cargar modelo");
         // Creamos un gson con el adaptador de tipo para la clase LocalDateTime
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class,
                         new LocalDateTimeAdaptador())
                 .create();
         //Inicializamos un objeto a devolver
-        Modelo devolverM = null;
+        Modelo devolverM;
         try (FileReader lector = new FileReader(rutaJSON)) {
             /* Si no encuentra problemas leemos el fichero y lo pasamos a
                 hashMap*/

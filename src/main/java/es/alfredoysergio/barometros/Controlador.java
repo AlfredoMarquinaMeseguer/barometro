@@ -4,33 +4,12 @@
  */
 package es.alfredoysergio.barometros;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.Locale;
 import javafx.fxml.FXML;
 
@@ -159,7 +138,7 @@ public class Controlador implements Initializable {
     /**
      * El objeto Vista asociado a este objeto Controles.
      */
-    Modelo modelo;
+    private Modelo modelo;
 
     /**
      * Validador para los campos rellenables
@@ -178,10 +157,11 @@ public class Controlador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        preferencias = rb.getLocale().getLanguage().toUpperCase();
+        preferencias = rb.getLocale().getLanguage().toUpperCase(rb.getLocale());
 
         SpinnerValueFactory<Integer> valueFactory
-                = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
+                = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+                        LocalTime.MAX.getHour());
 
         spHora.setValueFactory(valueFactory);
         modelo = Modelo.cargarModelo(Controlador.RUTA_JSON);
@@ -448,9 +428,14 @@ public class Controlador implements Initializable {
 
     }
 
+    /**
+     * Escribe la presion de referencia en la etiqueta 
+     * @param presionReferencia 
+     */
+    
     private void escribirPresionRef(Double presionReferencia) {
-        labbelPresionMmhg.setText(String.format("%.2f",
-                presionReferencia) + " mmhg");
+        labbelPresionMmhg.setText(String.format(i18n.getLocale(),
+                "%.2f", presionReferencia) + " mmhg");
     }
 
     //**************************************************************************

@@ -25,9 +25,9 @@ public class CajaBlanca {
 //    public void testMoquito() {
 //        Modelo espia = Mockito.spy(new Modelo());
 //        Mockito.doReturn(true).when(espia).borrascaIntensa();
-////        Mockito.doReturn(false).when(espia).borrascaLejos();
+////        Mockito.doReturn(false).when(espia).borrascaSuave();
 ////        Mockito.doReturn(false).when(espia).anticiclonIntenso();
-////        Mockito.doReturn(false).when(espia).anticiclonEntreBorrascas();
+////        Mockito.doReturn(false).when(espia).anticiclonSuave();
 //        assertEquals(Modelo.Tiempo.BORRASCA_INTENSA, espia.obtenerTiempo());
 //    }
 
